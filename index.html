@@ -1,0 +1,3281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XP STORE - متجر شحن الألعاب والاشتراكات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #e30613;
+            --dark-red: #c10511;
+            --light-red: #ff4d4d;
+            --dark-color: #1a1a1a;
+            --light-color: #f8f8f8;
+            --accent-gold: #FFD700;
+            --accent-blue: #3498db;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Header with animated logo */
+        header {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: fadeInLeft 1s ease;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            transition: var(--transition);
+        }
+        
+        nav ul li {
+            margin-right: 1.5rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        nav ul li a i {
+            margin-left: 5px;
+            font-size: 1.2rem; /* زيادة حجم الأيقونات */
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        nav ul li a.active {
+            background-color: var(--light-red);
+        }
+        
+        /* Cart icon */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .cart-icon i {
+            font-size: 1.5rem; /* زيادة حجم أيقونة السلة */
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-gold);
+            color: var(--dark-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(231, 6, 19, 0.3);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Main Buttons */
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .main-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .main-btn:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            background-color: rgba(227, 6, 19, 0.7);
+            border-color: var(--accent-gold);
+        }
+        
+        .main-btn i {
+            font-size: 3.5rem; /* زيادة حجم الأيقونات */
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+        
+        .main-btn:hover i {
+            transform: scale(1.2);
+            color: var(--accent-gold);
+        }
+        
+        .main-btn span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        
+        .main-btn:hover span {
+            color: var(--accent-gold);
+        }
+        
+        .main-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                rgba(255, 255, 255, 0.1)
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold), var(--primary-red));
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-red);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-red), transparent);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .feature-card i {
+            font-size: 3.5rem; /* زيادة حجم الأيقونات */
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover i {
+            transform: rotate(15deg) scale(1.1);
+            color: var(--dark-red);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Games Section */
+        .games-section, .subscriptions-section {
+            padding: 5rem 0;
+            background-color: #f5f5f5;
+            position: relative;
+        }
+        
+        .games-section::before, .subscriptions-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold), var(--primary-red));
+        }
+        
+        .games-grid, .subscriptions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .game-card, .subscription-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .game-card::after, .subscription-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+        
+        .game-card:hover, .subscription-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-card:hover::after, .subscription-card:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .game-card img, .subscription-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .game-card:hover img, .subscription-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .game-info, .subscription-info {
+            padding: 1.5rem;
+        }
+        
+        .game-info h3, .subscription-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .game-info p, .subscription-info p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, var(--dark-red), var(--primary-red));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-red);
+            color: white;
+        }
+        
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: slideIn 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform-origin: center;
+            position: relative;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+        }
+        
+        .modal-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        /* Game Selection Tabs */
+        .game-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .game-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+        
+        .game-tab.active {
+            color: var(--primary-red);
+            border-bottom-color: var(--primary-red);
+        }
+        
+        .game-tab:hover {
+            color: var(--dark-red);
+        }
+        
+        /* Product Selection */
+        .product-selection {
+            display: none;
+        }
+        
+        .product-selection.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .product-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .product-option {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #eee;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        
+        .product-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-option:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .product-option.selected {
+            border: 2px solid var(--primary-red);
+            background-color: rgba(227, 6, 19, 0.05);
+        }
+        
+        .product-option.selected::before {
+            transform: scaleX(1);
+        }
+        
+        .product-option img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+        
+        .product-option h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .product-option .price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .price-flag {
+            display: flex;
+            align-items: center;
+            margin-top: 0.3rem;
+        }
+        
+        .price-flag img {
+            width: 20px;
+            height: 15px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        
+        /* Quantity Selector */
+        .quantity-selector {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+            position: sticky;
+            bottom: 0;
+            background: white;
+            border-top: 1px solid #eee;
+            z-index: 10;
+        }
+        
+        .quantity-selector.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .quantity-selector h4 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .quantity-controls button {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-controls button:first-child {
+            border-radius: 20px 0 0 20px;
+        }
+        
+        .quantity-controls button:last-child {
+            border-radius: 0 20px 20px 0;
+        }
+        
+        .quantity-controls button:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .quantity-controls input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .game-id-input {
+            margin-top: 1rem;
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        /* Cart Modal */
+        .cart-modal .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+        
+        .cart-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .cart-item-info img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-left: 1rem;
+            border-radius: 5px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark-color);
+        }
+        
+        .cart-item-details p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--primary-red);
+            margin: 0 1rem;
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .cart-item-remove:hover {
+            background-color: rgba(231, 76, 60, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-top: 2px solid #eee;
+            margin-top: 1rem;
+        }
+        
+        .discount-code {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .discount-code input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .discount-code button {
+            padding: 0 1rem;
+            background-color: var(--accent-gold);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .cart-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Checkout Form */
+        .checkout-form {
+            margin-top: 2rem;
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.1);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        /* Subscription Plans */
+        .subscription-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .subscription-plan {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid #eee;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .subscription-plan::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        
+        .subscription-plan:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subscription-plan:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .subscription-plan.selected {
+            border: 2px solid var(--primary-red);
+            background-color: rgba(227, 6, 19, 0.05);
+        }
+        
+        .subscription-plan.selected::before {
+            transform: scaleX(1);
+        }
+        
+        .subscription-plan h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .subscription-plan .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+        
+        .subscription-plan .features {
+            list-style: none;
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+        
+        .subscription-plan .features li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .subscription-plan .features li::before {
+            content: '✓';
+            color: var(--primary-red);
+            margin-left: 0.5rem;
+        }
+        
+        .ps-plus-logo {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+        
+        /* Duration Selector */
+        .duration-selector {
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .duration-selector.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .duration-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .duration-option {
+            flex: 1;
+            min-width: 100px;
+            background-color: white;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .duration-option:hover {
+            border-color: var(--primary-red);
+        }
+        
+        .duration-option.selected {
+            border-color: var(--primary-red);
+            background-color: rgba(227, 6, 19, 0.05);
+        }
+        
+        .duration-option h5 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .duration-option .price {
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        
+        /* Info Modals */
+        .info-modal-content {
+            max-width: 600px;
+        }
+        
+        .info-modal-body {
+            padding: 2rem;
+            line-height: 1.8;
+        }
+        
+        .info-modal-body h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-red);
+        }
+        
+        .info-modal-body ul {
+            margin-bottom: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        .info-modal-body ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .info-modal-body ul li::before {
+            content: '•';
+            color: var(--primary-red);
+            margin-left: 0.5rem;
+        }
+        
+        .golden-guarantee {
+            background-color: #fef9e7;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-gold);
+            margin-top: 1.5rem;
+        }
+        
+        /* Guarantee Buttons */
+        .guarantee-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .guarantee-btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .guarantee-btn i {
+            margin-left: 0.5rem;
+            transition: var(--transition);
+            font-size: 1.2rem; /* زيادة حجم الأيقونات */
+        }
+        
+        .guarantee-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .guarantee-btn:hover i {
+            transform: rotate(360deg);
+        }
+        
+        .guarantee-btn.gold {
+            background: linear-gradient(135deg, var(--accent-gold), #f1c40f);
+            color: var(--dark-color);
+        }
+        
+        .guarantee-btn.red {
+            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
+            color: white;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            background-color: white;
+            position: relative;
+        }
+        
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold), var(--primary-red));
+        }
+        
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .contact-card i {
+            font-size: 3.5rem; /* زيادة حجم الأيقونات */
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover i {
+            transform: scale(1.2);
+        }
+        
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .contact-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+        
+        .instagram-btn {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-gold), var(--primary-red));
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-red);
+        }
+        
+        .footer-column p {
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-column ul li a i {
+            margin-left: 0.5rem;
+            font-size: 1.1rem; /* زيادة حجم الأيقونات */
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-red);
+            padding-right: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(30deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(30deg);
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+                justify-content: center;
+            }
+            
+            nav {
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                display: none;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .main-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .main-btn {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .subscription-plans {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                height: 70vh;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+            
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-card {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .main-btn {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .main-btn i {
+                font-size: 2.5rem;
+            }
+            
+            .main-btn span {
+                font-size: 1rem;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-info {
+                margin-bottom: 0.5rem;
+                width: 100%;
+            }
+            
+            .cart-item-actions {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .cart-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .cart-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .duration-options {
+                flex-direction: column;
+            }
+        }
+        
+        /* RTL specific styles */
+        html[dir="rtl"] .feature-card i,
+        html[dir="rtl"] .game-card i,
+        html[dir="rtl"] .subscription-card i {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
+        
+        html[dir="rtl"] .cart-item-info img {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
+        
+        html[dir="rtl"] .footer-column h3::after {
+            right: auto;
+            left: 0;
+        }
+        
+        html[dir="rtl"] .footer-column ul li a:hover {
+            padding-right: 0;
+            padding-left: 5px;
+        /* تحسينات سلة المشتريات */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .cart-item:hover {
+            background-color: #f9f9f9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .cart-item-info img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-left: 1rem;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark-color);
+        }
+        
+        .cart-item-details p {
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .cart-item-details p span {
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--primary-red);
+            margin: 0 1rem;
+            min-width: 80px;
+            text-align: left;
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .cart-item-remove:hover {
+            background-color: rgba(231, 76, 60, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-top: 2px solid #eee;
+            margin-top: 1rem;
+            background-color: white;
+            border-radius: 8px;
+        }
+        
+        .discount-code {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .discount-code input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .discount-code button {
+            padding: 0 1.5rem;
+            background-color: var(--accent-gold);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .discount-code button:hover {
+            background-color: #e6c200;
+        }
+        
+        /* تحسينات للنوافذ المنبثقة */
+        .modal {
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+        
+        .modal-content {
+            margin: 20px auto;
+            max-height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-body {
+            overflow-y: auto;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <img src="https://h.top4top.io/p_3405jnad40.png" alt="XP STORE Logo">
+                    <h1>XP STORE</h1>
+                </div>
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="#" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="#games-section" id="show-charge"><i class="fas fa-gamepad"></i> شحن الألعاب</a></li>
+                        <li><a href="#subscriptions-section" id="show-subscriptions"><i class="fas fa-crown"></i> الاشتراكات</a></li>
+                        <li><a href="#features"><i class="fas fa-star"></i> المميزات</a></li>
+                        <li><a href="#contact"><i class="fas fa-headset"></i> تواصل معنا</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon" id="cart-icon">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>مرحبًا بكم في XP STORE</h2>
+            <p>أسرع متجر لشحن الألعاب والاشتراكات مع ضمان ذهبي ودعم فني متكامل</p>
+            
+            <div class="main-buttons">
+                <a href="#games-section" class="main-btn" id="charge-btn">
+                    <i class="fas fa-gamepad"></i>
+                    <span>شحن الألعاب</span>
+                </a>
+                <a href="#subscriptions-section" class="main-btn" id="subscriptions-btn">
+                    <i class="fas fa-crown"></i>
+                    <span>اشتراكات بلايستيشن</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>لماذا تختار XP STORE؟</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>سرعة الشحن</h3>
+                    <p>شحن فوري خلال دقائق معدودة بعد تأكيد الطلب والدفع</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>ضمان ذهبي</h3>
+                    <p>ضمان وتعويض خلال 15 يوم في حال توقف الاشتراك عن العمل</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>موثوقية</h3>
+                    <p>أكثر من 5000 عميل راضٍ عن خدماتنا وجودة منتجاتنا</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>دعم فني</h3>
+                    <p>دعم فني متاح على مدار الساعة لمساعدتك في أي مشكلة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="games-section" id="games-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>الألعاب المتاحة للشحن</h2>
+            </div>
+            
+            <div class="games-grid">
+                <div class="game-card">
+                    <img src="https://www2.0zz0.com/2025/04/29/11/721955508.jpg" alt="فري فاير">
+                    <div class="game-info">
+                        <h3>فري فاير</h3>
+                        <p>شحن الجواهر والعضويات والبويا باس وتصريح المستوى بأسعار تنافسية</p>
+                        <button class="btn show-freefire">عرض المنتجات</button>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://www2.0zz0.com/2025/04/29/11/409352178.jpg" alt="ببجي">
+                    <div class="game-info">
+                        <h3>ببجي موبايل</h3>
+                        <p>شحن شدات ببجي موبايل بأسعار مميزة وبسرعة فائقة</p>
+                        <button class="btn show-pubg">عرض المنتجات</button>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://d.top4top.io/p_3406x4ff72.png" alt="فورت نايت">
+                    <div class="game-info">
+                        <h3>فورت نايت</h3>
+                        <p>شحن V-Bucks و Crew Pack بأسعار مناسبة للجميع</p>
+                        <button class="btn show-fortnite">عرض المنتجات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscriptions Section -->
+    <section class="subscriptions-section" id="subscriptions-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>اشتراكات بلايستيشن</h2>
+            </div>
+            
+            <div class="subscriptions-grid">
+                <div class="subscription-card">
+                    <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="بلايستيشن بلس">
+                    <div class="subscription-info">
+                        <img src="https://www2.0zz0.com/2025/04/29/12/805751935.png" alt="بلايستيشن بلس" class="ps-plus-logo">
+                        <h3>بلايستيشن بلس</h3>
+                        <p>اشتراكات بلايستيشن بلس بجميع مستوياتها (أساسي، إضافي، فاخر) لفترات مختلفة</p>
+                        <button class="btn show-psplus">عرض الاشتراكات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Buttons -->
+    <section class="container">
+        <div class="guarantee-buttons">
+            <a href="#" class="guarantee-btn gold" id="show-guarantee">
+                <i class="fas fa-medal"></i> الضمان الذهبي
+            </a>
+            <a href="#" class="guarantee-btn red" id="show-vbucks-info">
+                <i class="fas fa-info-circle"></i> معلومات شحن فورتنايت
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>تواصل معنا</h2>
+            </div>
+            
+            <div class="contact-methods">
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>واتساب</h3>
+                    <p>للطلبات والاستفسارات، يمكنك التواصل معنا مباشرة عبر واتساب</p>
+                    <a href="https://wa.me/962798084469" class="contact-btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> تواصل الآن
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fab fa-instagram"></i>
+                    <h3>انستقرام</h3>
+                    <p>تابعنا على انستقرام لمعرفة آخر العروض والتحديثات</p>
+                    <a href="https://www.instagram.com/xpstore.jo?igsh=M3NpY3Buem16MXc5" class="contact-btn instagram-btn">
+                        <i class="fab fa-instagram"></i> تابعنا
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>عن المتجر</h3>
+                    <p>XP STORE متجر متخصص في شحن الألعاب واشتراكات البلايستيشن بأسعار تنافسية وخدمة سريعة.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/xpstore.jo?igsh=M3NpY3Buem16MXc5"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/962798084469"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="#games-section" id="footer-charge"><i class="fas fa-gamepad"></i> شحن الألعاب</a></li>
+                        <li><a href="#subscriptions-section" id="footer-subscriptions"><i class="fas fa-crown"></i> اشتراكات بلايستيشن</a></li>
+                        <li><a href="#features"><i class="fas fa-star"></i> مميزاتنا</a></li>
+                        <li><a href="#contact"><i class="fas fa-headset"></i> تواصل معنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>معلومات الاتصال</h3>
+                    <ul>
+                        <li><a href="tel:+962798084469"><i class="fas fa-phone"></i> +962 7 9808 4469</a></li>
+                        <li><a href="https://wa.me/962798084469"><i class="fab fa-whatsapp"></i> واتساب فقط</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> متاحون 24/7</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 XP STORE. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Free Fire Modal -->
+    <div class="modal" id="freefire-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>شحن فري فاير</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="game-tabs">
+                    <div class="game-tab active" data-tab="diamonds">الجواهر</div>
+                    <div class="game-tab" data-tab="other">منتجات أخرى</div>
+                </div>
+                
+                <div class="product-selection active" id="diamonds">
+                    <div class="product-options">
+                        <div class="product-option" data-product="110 جواهر فري فاير" data-price="0.70">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="110 جواهر">
+                            <h4>110 جواهر</h4>
+                            <div class="price">
+                                0.70 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 0.70 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 1$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="341 جواهر فري فاير" data-price="2">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="341 جواهر">
+                            <h4>341 جواهر</h4>
+                            <div class="price">
+                                2 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 2 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 2.85$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="572 جواهر فري فاير" data-price="3.30">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="572 جواهر">
+                            <h4>572 جواهر</h4>
+                            <div class="price">
+                                3.30 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 3.30 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 4.66$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="900 جواهر فري فاير" data-price="5.10">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="900 جواهر">
+                            <h4>900 جواهر</h4>
+                            <div class="price">
+                                5.10 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 5.10 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 7.20$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="1020 جواهر فري فاير" data-price="5.80">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="1020 جواهر">
+                            <h4>1020 جواهر</h4>
+                            <div class="price">
+                                5.80 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 5.80 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 8.18$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="1166 جواهر فري فاير" data-price="6.35">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="1166 جواهر">
+                            <h4>1166 جواهر</h4>
+                            <div class="price">
+                                6.35 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 6.35 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 8.96$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="2070 جواهر فري فاير" data-price="11.25">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="2070 جواهر">
+                            <h4>2070 جواهر</h4>
+                            <div class="price">
+                                11.25 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 11.25 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 15.87$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="2398 جواهر فري فاير" data-price="12.40">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="2398 جواهر">
+                            <h4>2398 جواهر</h4>
+                            <div class="price">
+                                12.40 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 12.40 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 17.5$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="2970 جواهر فري فاير" data-price="15.40">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="2970 جواهر">
+                            <h4>2970 جواهر</h4>
+                            <div class="price">
+                                15.40 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 15.40 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 21.75$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="4000 جواهر فري فاير" data-price="20.90">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="4000 جواهر">
+                            <h4>4000 جواهر</h4>
+                            <div class="price">
+                                20.90 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 20.90 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 29.5$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="5020 جواهر فري فاير" data-price="25.75">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="5020 جواهر">
+                            <h4>5020 جواهر</h4>
+                            <div class="price">
+                                25.75 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 25.75 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 36.35$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="10,000 جواهر فري فاير" data-price="51.20">
+                            <img src="https://l.top4top.io/p_3406xuu046.png" alt="10,000 جواهر">
+                            <h4>10,000 جواهر</h4>
+                            <div class="price">
+                                51.20 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 51.20 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 72.25$
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <h4 id="selected-product-name">110 جواهر فري فاير</h4>
+                        <input type="text" class="game-id-input" placeholder="أدخل معرف اللعبة (ID)" required>
+                        <div class="quantity-controls">
+                            <button class="decrement">-</button>
+                            <input type="number" value="1" min="1" id="quantity">
+                            <button class="increment">+</button>
+                        </div>
+                        <button class="btn add-to-cart-btn" id="add-to-cart">إضافة للسلة</button>
+                    </div>
+                </div>
+                
+                <div class="product-selection" id="other">
+                    <div class="product-options">
+                        <div class="product-option" data-product="تصريح مستوى فري فاير" data-price="1.25">
+                            <img src="https://k.top4top.io/p_34066irda5.png" alt="تصريح مستوى">
+                            <h4>تصريح مستوى</h4>
+                            <div class="price">
+                                1.25 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 1.25 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 1.75$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="بويا باس فري فاير" data-price="1.95">
+                            <img src="https://j.top4top.io/p_3406fouwt4.png" alt="بويا باس">
+                            <h4>بويا باس</h4>
+                            <div class="price">
+                                1.95 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 1.95 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 2.75$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="عضوية أسبوعية فري فاير" data-price="1.75">
+                            <img src="https://a.top4top.io/p_3406yxl6a7.png" alt="عضوية أسبوعية">
+                            <h4>عضوية أسبوعية</h4>
+                            <div class="price">
+                                1.75 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 1.75 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 2.5$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-option" data-product="عضوية شهرية فري فاير" data-price="4.5">
+                            <img src="https://g.top4top.io/p_34060rtcm0.png" alt="عضوية شهرية">
+                            <h4>عضوية شهرية</h4>
+                            <div class="price">
+                                4.5 JD
+                                <div class="price-flag">
+                                    <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 4.5 JD
+                                    <img src="https://flagcdn.com/w20/us.png" alt="USA"> 6.35$
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <h4 id="selected-product-name-other">تصريح مستوى فري فاير</h4>
+                        <input type="text" class="game-id-input" placeholder="أدخل معرف اللعبة (ID)" required>
+                        <div class="quantity-controls">
+                            <button class="decrement">-</button>
+                            <input type="number" value="1" min="1" id="quantity-other">
+                            <button class="increment">+</button>
+                        </div>
+                        <button class="btn add-to-cart-btn" id="add-to-cart-other">إضافة للسلة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PUBG Modal -->
+    <div class="modal" id="pubg-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>شحن ببجي موبايل</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-options">
+                    <div class="product-option" data-product="60 شدة ببجي" data-price="0.68">
+                        <img src="https://h.top4top.io/p_3406fulee2.png" alt="60 شدة">
+                        <h4>60 شدة</h4>
+                        <div class="price">
+                            0.68 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 0.68 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 0.96$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="325 شدة ببجي" data-price="3.35">
+                        <img src="https://h.top4top.io/p_3406fulee2.png" alt="325 شدة">
+                        <h4>325 شدة</h4>
+                        <div class="price">
+                            3.35 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 3.35 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 4.73$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="660 شدة ببجي" data-price="6.65">
+                        <img src="https://h.top4top.io/p_3406fulee2.png" alt="660 شدة">
+                        <h4>660 شدة</h4>
+                        <div class="price">
+                            6.65 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 6.65 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 9.38$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="1800 شدة ببجي" data-price="15.85">
+                        <img src="https://h.top4top.io/p_3406fulee2.png" alt="1800 شدة">
+                        <h4>1800 شدة</h4>
+                        <div class="price">
+                            15.85 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 15.85 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 22.35$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="3850 شدة ببجي" data-price="32.5">
+                        <img src="https://h.top4top.io/p_3406fulee2.png" alt="3850 شدة">
+                        <h4>3850 شدة</h4>
+                        <div class="price">
+                            32.5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 32.5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 45.85$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="8100 شدة ببجي" data-price="64.85">
+                        <img src="https://h.top4top.io/p_3406fulee2.png" alt="8100 شدة">
+                        <h4>8100 شدة</h4>
+                        <div class="price">
+                            64.85 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 64.85 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 91.5$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quantity-selector">
+                    <h4 id="selected-product-name-pubg">60 شدة ببجي</h4>
+                    <input type="text" class="game-id-input" placeholder="أدخل معرف اللعبة (ID)" required>
+                    <div class="quantity-controls">
+                        <button class="decrement">-</button>
+                        <input type="number" value="1" min="1" id="quantity-pubg">
+                        <button class="increment">+</button>
+                    </div>
+                    <button class="btn add-to-cart-btn" id="add-to-cart-pubg">إضافة للسلة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fortnite Modal -->
+    <div class="modal" id="fortnite-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>شحن فورت نايت</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-options">
+                    <div class="product-option" data-product="1000 V-Bucks فورت نايت" data-price="5">
+                        <img src="https://g.top4top.io/p_3406chzw01.png" alt="1000 V-Bucks">
+                        <h4>1000 V-Bucks</h4>
+                        <div class="price">
+                            5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 7$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="2000 V-Bucks فورت نايت" data-price="9.5">
+                        <img src="https://g.top4top.io/p_3406chzw01.png" alt="2000 V-Bucks">
+                        <h4>2000 V-Bucks</h4>
+                        <div class="price">
+                            9.5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 9.5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 13.5$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="2800 V-Bucks فورت نايت" data-price="12.5">
+                        <img src="https://g.top4top.io/p_3406chzw01.png" alt="2800 V-Bucks">
+                        <h4>2800 V-Bucks</h4>
+                        <div class="price">
+                            12.5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 12.5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 17.65$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="5000 V-Bucks فورت نايت" data-price="19.5">
+                        <img src="https://g.top4top.io/p_3406chzw01.png" alt="5000 V-Bucks">
+                        <h4>5000 V-Bucks</h4>
+                        <div class="price">
+                            19.5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 19.5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 27.5$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="10,000 V-Bucks فورت نايت" data-price="37.5">
+                        <img src="https://g.top4top.io/p_3406chzw01.png" alt="10,000 V-Bucks">
+                        <h4>10,000 V-Bucks</h4>
+                        <div class="price">
+                            37.5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 37.5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 52.85$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="13,500 V-Bucks فورت نايت" data-price="47.5">
+                        <img src="https://g.top4top.io/p_3406chzw01.png" alt="13,500 V-Bucks">
+                        <h4>13,500 V-Bucks</h4>
+                        <div class="price">
+                            47.5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 47.5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 67$
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="Crew Pack فورت نايت" data-price="3.75">
+                        <img src="https://f.top4top.io/p_3406ofiai0.jpg" alt="Crew Pack">
+                        <h4>Crew Pack</h4>
+                        <div class="price">
+                            3.75 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 3.75 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 5.35$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quantity-selector">
+                    <h4 id="selected-product-name-fortnite">1000 V-Bucks فورت نايت</h4>
+                    <input type="text" class="game-id-input" placeholder="أدخل معرف اللعبة (ID)" required>
+                    <div class="quantity-controls">
+                        <button class="decrement">-</button>
+                        <input type="number" value="1" min="1" id="quantity-fortnite">
+                        <button class="increment">+</button>
+                    </div>
+                    <button class="btn add-to-cart-btn" id="add-to-cart-fortnite">إضافة للسلة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PS Plus Modal -->
+    <div class="modal" id="psplus-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>اشتراكات بلايستيشن بلس</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="subscription-plans">
+                    <div class="subscription-plan" data-plan="essential">
+                        <img src="https://www2.0zz0.com/2025/04/29/12/805751935.png" alt="بلايستيشن بلس" class="ps-plus-logo">
+                        <h4>أساسي</h4>
+                        <div class="price">
+                            6 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 6 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 8.5$
+                            </div>
+                        </div>
+                        <ul class="features">
+                            <li>الوصول إلى الألعاب المجانية الشهرية</li>
+                            <li>خصومات حصرية</li>
+                            <li>تخزين سحابي</li>
+                            <li>وضع اللعب الجماعي عبر الإنترنت</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subscription-plan" data-plan="extra">
+                        <img src="https://www2.0zz0.com/2025/04/29/12/805751935.png" alt="بلايستيشن بلس" class="ps-plus-logo">
+                        <h4>إضافي</h4>
+                        <div class="price">
+                            9 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 9 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 12.7$
+                            </div>
+                        </div>
+                        <ul class="features">
+                            <li>كل مميزات الأساسي</li>
+                            <li>الوصول إلى كتالوج الألعاب</li>
+                            <li>مئات الألعاب للتحميل واللعب</li>
+                            <li>تجربة ألعاب قبل شرائها</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subscription-plan" data-plan="deluxe">
+                        <img src="https://www2.0zz0.com/2025/04/29/12/805751935.png" alt="بلايستيشن بلس" class="ps-plus-logo">
+                        <h4>فاخر</h4>
+                        <div class="price">
+                            10.5 JD
+                            <div class="price-flag">
+                                <img src="https://flagcdn.com/w20/jo.png" alt="Jordan"> 10.5 JD
+                                <img src="https://flagcdn.com/w20/us.png" alt="USA"> 14.8$
+                            </div>
+                        </div>
+                        <ul class="features">
+                            <li>كل مميزات الأساسي والإضافي</li>
+                            <li>الوصول إلى كتالوج الألعاب الكلاسيكية</li>
+                            <li>وضع اللعب عن بعد</li>
+                            <li>محتوى حصري إضافي</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="duration-selector" id="essential-duration">
+                    <h4>اختر مدة الاشتراك:</h4>
+                    <div class="duration-options">
+                        <div class="duration-option" data-duration="1" data-price="6" data-product="بلايستيشن بلس أساسي - 1 شهر">
+                            <h5>1 شهر</h5>
+                            <div class="price">6 JD</div>
+                        </div>
+                        <div class="duration-option" data-duration="3" data-price="16" data-product="بلايستيشن بلس أساسي - 3 أشهر">
+                            <h5>3 أشهر</h5>
+                            <div class="price">16 JD</div>
+                        </div>
+                        <div class="duration-option" data-duration="12" data-price="40" data-product="بلايستيشن بلس أساسي - 1 سنة">
+                            <h5>1 سنة</h5>
+                            <div class="price">40 JD</div>
+                        </div>
+                    </div>
+                    <input type="text" class="game-id-input" placeholder="أدخل معرف البلايستيشن (PSN ID)" required>
+                    <button class="btn add-to-cart-btn" id="add-essential-to-cart">إضافة للسلة</button>
+                </div>
+                
+                <div class="duration-selector" id="extra-duration">
+                    <h4>اختر مدة الاشتراك:</h4>
+                    <div class="duration-options">
+                        <div class="duration-option" data-duration="1" data-price="9" data-product="بلايستيشن بلس إضافي - 1 شهر">
+                            <h5>1 شهر</h5>
+                            <div class="price">9 JD</div>
+                        </div>
+                        <div class="duration-option" data-duration="3" data-price="25" data-product="بلايستيشن بلس إضافي - 3 أشهر">
+                            <h5>3 أشهر</h5>
+                            <div class="price">25 JD</div>
+                        </div>
+                        <div class="duration-option" data-duration="12" data-price="65" data-product="بلايستيشن بلس إضافي - 1 سنة">
+                            <h5>1 سنة</h5>
+                            <div class="price">65 JD</div>
+                        </div>
+                    </div>
+                    <input type="text" class="game-id-input" placeholder="أدخل معرف البلايستيشن (PSN ID)" required>
+                    <button class="btn add-to-cart-btn" id="add-extra-to-cart">إضافة للسلة</button>
+                </div>
+                
+                <div class="duration-selector" id="deluxe-duration">
+                    <h4>اختر مدة الاشتراك:</h4>
+                    <div class="duration-options">
+                        <div class="duration-option" data-duration="1" data-price="10.5" data-product="بلايستيشن بلس فاخر - 1 شهر">
+                            <h5>1 شهر</h5>
+                            <div class="price">10.5 JD</div>
+                        </div>
+                        <div class="duration-option" data-duration="3" data-price="29" data-product="بلايستيشن بلس فاخر - 3 أشهر">
+                            <h5>3 أشهر</h5>
+                            <div class="price">29 JD</div>
+                        </div>
+                        <div class="duration-option" data-duration="12" data-price="75" data-product="بلايستيشن بلس فاخر - 1 سنة">
+                            <h5>1 سنة</h5>
+                            <div class="price">75 JD</div>
+                        </div>
+                    </div>
+                    <input type="text" class="game-id-input" placeholder="أدخل معرف البلايستيشن (PSN ID)" required>
+                    <button class="btn add-to-cart-btn" id="add-deluxe-to-cart">إضافة للسلة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>سلة التسوق</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be added here dynamically -->
+                    <p style="text-align: center; padding: 2rem;" id="empty-cart-message">سلة التسوق فارغة</p>
+                </div>
+                
+                <div class="discount-code">
+                    <input type="text" id="discount-code" placeholder="أدخل كود الخصم">
+                    <button id="apply-discount">تطبيق</button>
+                </div>
+                
+                <div class="cart-total">
+                    <span>المجموع:</span>
+                    <span id="cart-total">0.00 JD</span>
+                </div>
+                
+                <div class="checkout-form" id="checkout-form">
+                    <h4 style="margin-bottom: 1.5rem;">معلومات الطلب</h4>
+                    
+                    <div class="form-group">
+                        <label for="name">الاسم الكامل</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">ملاحظات إضافية (اختياري)</label>
+                        <textarea id="notes"></textarea>
+                    </div>
+                    
+                    <div class="cart-actions">
+                        <button class="btn btn-outline" id="clear-cart">تفريغ السلة</button>
+                        <button class="btn" id="checkout">إتمام الطلب عبر واتساب</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Golden Guarantee Modal -->
+    <div class="modal" id="guarantee-modal">
+        <div class="modal-content info-modal-content">
+            <div class="modal-header">
+                <h3>الضمان الذهبي</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body info-modal-body">
+                <div class="golden-guarantee">
+                    <h4>مع XP يوجد ضمان ذهبي وتعويض طوال فترة الاشتراك</h4>
+                    <ul>
+                        <li>« في حال توقف الاشتراك عن العمل في أول 15 يوم »</li>
+                        <li>◉ يحق لك استرداد أموالك أو استبدال مُنتجك بآخر جديد</li>
+                        <li>« طوال فترة الاشتراك في حال توقف المُنتج عن العمل »</li>
+                        <li>◉ نعوضك باشتراك جديد</li>
+                    </ul>
+                </div>
+                
+                <h4 style="margin-top: 2rem;">شروط الضمان</h4>
+                <ul>
+                    <li>◉ لسنا مسؤولين عن المشاكل التي تكون من طرف العميل، مثل سرعة الانترنت، أو ضعف جهازك المُشغل</li>
+                    <li>◉ تقليل احترام المتجر أو سب الكادر أو أي من أساليب التلفظ يعرض اشتراكك وطلبك للإلغاء بدون تعويض</li>
+                    <li>◉ من أجل إجراءات احترازية جميع رسائل العملاء محفوظة بعدة نسخ</li>
+                </ul>
+                
+                <p style="margin-top: 1.5rem;">مع ذلك يحاول XP مساعدة عُملاءه وتقديم حلوله بأي مشكلة يواجهها عُملاء XP حتى لو كنا غير مسؤولين عنها .. الدعم الفني مستمر معك طوال فترة الاشتراك</p>
+                <p style="font-weight: bold; color: var(--primary-red); margin-top: 1rem;">مع XP تأكد أنه حقك مارح يضيع ♡.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- V-Bucks Info Modal -->
+    <div class="modal" id="vbucks-info-modal">
+        <div class="modal-content info-modal-content">
+            <div class="modal-header">
+                <h3>معلومات شحن فورت نايت</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body info-modal-body">
+                <h4>يجب التواصل معنا لتعرف المزيد عن شحن فورتنايت</h4>
+                <p>لضمان عملية شحن ناجحة لـ V-Bucks في فورت نايت، يرجى اتباع التعليمات التالية:</p>
+                
+                <ul>
+                    <li>◉ تأكد من تقديم معرف Epic Games الخاص بك بشكل صحيح</li>
+                    <li>◉ يجب أن يكون حسابك قادرًا على استقبال الهدايا</li>
+                    <li>◉ بعض الحسابات قد تحتاج إلى تفعيل خاصية استقبال الهدايا</li>
+                    <li>◉ عملية الشحن قد تستغرق من 5 دقائق إلى 24 ساعة حسب النظام</li>
+                </ul>
+                
+                <p style="margin-top: 1.5rem;">لأي استفسارات أو مساعدة، لا تتردد في التواصل معنا عبر واتساب:</p>
+                <a href="https://wa.me/962798084469" class="btn" style="display: inline-block; margin-top: 1rem;">
+                    <i class="fab fa-whatsapp"></i> تواصل معنا عبر واتساب
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart functionality - الكود المعدل
+        let cart = [];
+        let currentProduct = null;
+        let currentPlan = null;
+        let currentDuration = null;
+        let discountApplied = false;
+        const DISCOUNT_CODE = "XP_Store1";
+        const DISCOUNT_PERCENTAGE = 0.1; // 10%
+        
+        // DOM Elements
+        const cartIcon = document.getElementById('cart-icon');
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const checkoutForm = document.getElementById('checkout-form');
+        const clearCartBtn = document.getElementById('clear-cart');
+        const checkoutBtn = document.getElementById('checkout');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        const discountCodeInput = document.getElementById('discount-code');
+        const applyDiscountBtn = document.getElementById('apply-discount');
+        
+        // Initialize the app
+        function init() {
+            loadCart();
+            setupEventListeners();
+            setupProductSelection();
+            setupSubscriptionSelection();
+        }
+        
+        // Load cart from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('xpstore-cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+        }
+        
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('xpstore-cart', JSON.stringify(cart));
+        }
+        
+        // Update cart UI
+        function updateCartUI() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items list
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; padding: 2rem;">سلة التسوق فارغة</p>';
+                emptyCartMessage.style.display = 'block';
+                checkoutForm.style.display = 'none';
+                discountCodeInput.value = '';
+                discountApplied = false;
+            } else {
+                emptyCartMessage.style.display = 'none';
+                checkoutForm.style.display = 'block';
+                
+                cartItemsContainer.innerHTML = '';
+                
+                // Calculate subtotal before discount
+                let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Display cart items
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <img src="${getProductImage(item.product)}" alt="${item.product}">
+                            <div class="cart-item-details">
+                                <h4>${item.product}</h4>
+                                <p>
+                                    <span>الكمية: ${item.quantity}</span>
+                                    <span>السعر: ${item.price.toFixed(2)} JD</span>
+                                    ${item.gameId ? `<span>المعرف: ${item.gameId}</span>` : ''}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <span class="cart-item-price">${(item.price * item.quantity).toFixed(2)} JD</span>
+                            <button class="cart-item-remove" data-index="${index}">&times;</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+                
+                // Display discount if applied
+                if (discountApplied) {
+                    const discountAmount = subtotal * DISCOUNT_PERCENTAGE;
+                    
+                    const discountItem = document.createElement('div');
+                    discountItem.className = 'cart-item';
+                    discountItem.style.backgroundColor = '#fff9e6';
+                    discountItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <i class="fas fa-tag" style="font-size: 1.5rem; color: var(--accent-gold); margin-left: 1rem;"></i>
+                            <div class="cart-item-details">
+                                <h4 style="color: var(--accent-gold);">خصم ${DISCOUNT_PERCENTAGE * 100}%</h4>
+                                <p>كود الخصم: ${DISCOUNT_CODE}</p>
+                            </div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <span class="cart-item-price" style="color: var(--accent-gold);">-${discountAmount.toFixed(2)} JD</span>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(discountItem);
+                    
+                    subtotal -= discountAmount;
+                }
+                
+                // Update cart total
+                cartTotal.textContent = `${subtotal.toFixed(2)} JD`;
+            }
+        }
+        
+        // Get product image based on product name
+        function getProductImage(productName) {
+            if (productName.includes('جواهر')) return 'https://l.top4top.io/p_3406xuu046.png';
+            if (productName.includes('تصريح مستوى')) return 'https://k.top4top.io/p_34066irda5.png';
+            if (productName.includes('بويا باس')) return 'https://j.top4top.io/p_3406fouwt4.png';
+            if (productName.includes('عضوية أسبوعية')) return 'https://a.top4top.io/p_3406yxl6a7.png';
+            if (productName.includes('عضوية شهرية')) return 'https://g.top4top.io/p_34060rtcm0.png';
+            if (productName.includes('شدة')) return 'https://h.top4top.io/p_3406fulee2.png';
+            if (productName.includes('V-Bucks')) return 'https://g.top4top.io/p_3406chzw01.png';
+            if (productName.includes('Crew Pack')) return 'https://f.top4top.io/p_3406ofiai0.jpg';
+            if (productName.includes('بلايستيشن بلس')) return 'https://j.top4top.io/p_3406pzoys0.png';
+            return 'https://via.placeholder.com/100';
+        }
+        
+        // Setup product selection functionality
+        function setupProductSelection() {
+            // Free Fire tabs
+            const freefireTabs = document.querySelectorAll('#freefire-modal .game-tab');
+            freefireTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    freefireTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    document.querySelectorAll('#freefire-modal .product-selection').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+            
+            // Product selection for all games
+            const productOptions = document.querySelectorAll('.product-option');
+            productOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected class from all options in the same container
+                    option.parentElement.querySelectorAll('.product-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                    
+                    // Update current product
+                    currentProduct = {
+                        product: option.dataset.product,
+                        price: parseFloat(option.dataset.price),
+                        gameId: '' // Will be filled when adding to cart
+                    };
+                    
+                    // Update the quantity selector
+                    const modalId = option.closest('.modal').id;
+                    const quantitySelector = document.querySelector(`#${modalId} .quantity-selector`);
+                    const productNameElement = document.querySelector(`#${modalId} #selected-product-name, #${modalId} #selected-product-name-pubg, #${modalId} #selected-product-name-fortnite, #${modalId} #selected-product-name-other`);
+                    
+                    if (quantitySelector && productNameElement) {
+                        quantitySelector.classList.add('active');
+                        productNameElement.textContent = currentProduct.product;
+                    }
+                });
+            });
+            
+            // Quantity controls
+            const quantityControls = document.querySelectorAll('.quantity-controls');
+            quantityControls.forEach(control => {
+                const decrement = control.querySelector('.decrement');
+                const increment = control.querySelector('.increment');
+                const input = control.querySelector('input');
+                
+                decrement.addEventListener('click', () => {
+                    if (parseInt(input.value) > 1) {
+                        input.value = parseInt(input.value) - 1;
+                    }
+                });
+                
+                increment.addEventListener('click', () => {
+                    input.value = parseInt(input.value) + 1;
+                });
+                
+                // Prevent manual input of non-numbers
+                input.addEventListener('input', () => {
+                    input.value = input.value.replace(/[^0-9]/g, '');
+                    if (input.value === '' || parseInt(input.value) < 1) {
+                        input.value = '1';
+                    }
+                });
+            });
+            
+            // Add to cart buttons for products
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (!currentProduct) {
+                        alert('الرجاء اختيار منتج أولاً');
+                        return;
+                    }
+                    
+                    const modalId = button.closest('.modal').id;
+                    const quantityInput = document.querySelector(`#${modalId} .quantity-controls input`);
+                    const gameIdInput = document.querySelector(`#${modalId} .game-id-input`);
+                    const quantity = parseInt(quantityInput.value);
+                    
+                    if (!gameIdInput.value.trim()) {
+                        alert('الرجاء إدخال معرف اللعبة');
+                        return;
+                    }
+                    
+                    // Create a copy of currentProduct to avoid reference issues
+                    const productToAdd = {
+                        ...currentProduct,
+                        gameId: gameIdInput.value.trim()
+                    };
+                    
+                    addToCart(productToAdd, quantity);
+                    
+                    // Show success message
+                    showAlert(`تم إضافة ${quantity} من ${currentProduct.product} إلى سلة التسوق`, 'success');
+                    
+                    // Reset inputs
+                    gameIdInput.value = '';
+                    quantityInput.value = '1';
+                    
+                    // Open cart modal
+                    openCartModal();
+                });
+            });
+        }
+        
+        // Setup subscription selection functionality
+        function setupSubscriptionSelection() {
+            // Subscription plan selection
+            const subscriptionPlans = document.querySelectorAll('.subscription-plan');
+            subscriptionPlans.forEach(plan => {
+                plan.addEventListener('click', () => {
+                    // Remove selected class from all plans
+                    subscriptionPlans.forEach(p => p.classList.remove('selected'));
+                    
+                    // Add selected class to clicked plan
+                    plan.classList.add('selected');
+                    
+                    // Update current plan
+                    currentPlan = plan.dataset.plan;
+                    
+                    // Hide all duration selectors
+                    document.querySelectorAll('.duration-selector').forEach(selector => {
+                        selector.classList.remove('active');
+                    });
+                    
+                    // Show the selected duration selector
+                    document.getElementById(`${currentPlan}-duration`).classList.add('active');
+                });
+            });
+            
+            // Duration selection
+            const durationOptions = document.querySelectorAll('.duration-option');
+            durationOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected class from all options in the same container
+                    option.parentElement.querySelectorAll('.duration-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                    
+                    // Update current duration
+                    currentDuration = {
+                        product: option.dataset.product,
+                        price: parseFloat(option.dataset.price),
+                        duration: option.dataset.duration,
+                        gameId: '' // Will be filled when adding to cart
+                    };
+                });
+            });
+            
+            // Add to cart buttons for subscriptions
+            const setupSubscriptionAddToCart = (planType) => {
+                const button = document.getElementById(`add-${planType}-to-cart`);
+                const gameIdInput = document.querySelector(`#${planType}-duration .game-id-input`);
+                
+                button.addEventListener('click', () => {
+                    if (!currentDuration) {
+                        alert('الرجاء اختيار مدة الاشتراك أولاً');
+                        return;
+                    }
+                    
+                    if (!gameIdInput.value.trim()) {
+                        alert('الرجاء إدخال معرف البلايستيشن');
+                        return;
+                    }
+                    
+                    // Create a copy of currentDuration to avoid reference issues
+                    const subscriptionToAdd = {
+                        ...currentDuration,
+                        gameId: gameIdInput.value.trim()
+                    };
+                    
+                    addToCart(subscriptionToAdd, 1);
+                    
+                    // Show success message
+                    showAlert(`تم إضافة ${currentDuration.product} إلى سلة التسوق`, 'success');
+                    
+                    // Reset input
+                    gameIdInput.value = '';
+                    
+                    // Open cart modal
+                    openCartModal();
+                });
+            };
+            
+            setupSubscriptionAddToCart('essential');
+            setupSubscriptionAddToCart('extra');
+            setupSubscriptionAddToCart('deluxe');
+        }
+        
+        // Add item to cart
+        function addToCart(product, quantity) {
+            // Check if product already in cart with same gameId
+            const existingItemIndex = cart.findIndex(item => 
+                item.product === product.product && 
+                item.gameId === product.gameId &&
+                (item.duration === product.duration || (!item.duration && !product.duration))
+            );
+            
+            if (existingItemIndex !== -1) {
+                // Update quantity if product already exists
+                cart[existingItemIndex].quantity += quantity;
+            } else {
+                // Add new item to cart
+                cart.push({
+                    product: product.product,
+                    price: product.price,
+                    quantity: quantity,
+                    gameId: product.gameId || '',
+                    duration: product.duration || ''
+                });
+            }
+            
+            saveCart();
+            updateCartUI();
+        }
+        
+        // Apply discount code
+        function applyDiscount(code) {
+            if (code === DISCOUNT_CODE) {
+                discountApplied = true;
+                updateCartUI();
+                showAlert('تم تطبيق خصم 10% على طلبك', 'success');
+                return true;
+            } else {
+                showAlert('كود الخصم غير صحيح', 'error');
+                return false;
+            }
+        }
+        
+        // Show alert message
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.textContent = message;
+            alertDiv.style.position = 'fixed';
+            alertDiv.style.top = '20px';
+            alertDiv.style.left = '50%';
+            alertDiv.style.transform = 'translateX(-50%)';
+            alertDiv.style.padding = '15px 25px';
+            alertDiv.style.borderRadius = '5px';
+            alertDiv.style.zIndex = '9999';
+            alertDiv.style.animation = 'fadeIn 0.3s ease';
+            
+            if (type === 'success') {
+                alertDiv.style.backgroundColor = '#4CAF50';
+                alertDiv.style.color = 'white';
+            } else {
+                alertDiv.style.backgroundColor = '#f44336';
+                alertDiv.style.color = 'white';
+            }
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(alertDiv);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Open cart modal
+        function openCartModal() {
+            document.getElementById('cart-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+            });
+            
+            // Cart icon click
+            cartIcon.addEventListener('click', openCartModal);
+            
+            // Close modal buttons
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    closeModal(this.closest('.modal').id);
+                });
+            });
+            
+            // Close modal when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+            
+            // Show modals for different products
+            const setupShowModal = (buttonClass, modalId) => {
+                document.querySelector(buttonClass)?.addEventListener('click', () => {
+                    document.getElementById(modalId).style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            };
+            
+            setupShowModal('.show-freefire', 'freefire-modal');
+            setupShowModal('.show-pubg', 'pubg-modal');
+            setupShowModal('.show-fortnite', 'fortnite-modal');
+            setupShowModal('.show-psplus', 'psplus-modal');
+            
+            // Info modals
+            document.getElementById('show-guarantee')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('guarantee-modal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            document.getElementById('show-vbucks-info')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('vbucks-info-modal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Navigation links
+            const setupNavLink = (elementId, modalId) => {
+                document.getElementById(elementId)?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById(modalId).style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            };
+            
+            setupNavLink('charge-btn', 'freefire-modal');
+            setupNavLink('subscriptions-btn', 'psplus-modal');
+            setupNavLink('show-charge', 'freefire-modal');
+            setupNavLink('show-subscriptions', 'psplus-modal');
+            setupNavLink('footer-charge', 'freefire-modal');
+            setupNavLink('footer-subscriptions', 'psplus-modal');
+            
+            // Remove item from cart
+            cartItemsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('cart-item-remove')) {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    cart.splice(index, 1);
+                    saveCart();
+                    updateCartUI();
+                    showAlert('تم إزالة المنتج من السلة', 'success');
+                }
+            });
+            
+            // Clear cart
+            clearCartBtn.addEventListener('click', () => {
+                if (confirm('هل أنت متأكد من أنك تريد تفريغ سلة التسوق؟')) {
+                    cart = [];
+                    saveCart();
+                    updateCartUI();
+                    showAlert('تم تفريغ سلة التسوق', 'success');
+                }
+            });
+            
+            // Apply discount code
+            applyDiscountBtn.addEventListener('click', () => {
+                const code = discountCodeInput.value.trim();
+                if (code) {
+                    applyDiscount(code);
+                } else {
+                    showAlert('الرجاء إدخال كود الخصم', 'error');
+                }
+            });
+            
+            // Checkout
+            checkoutBtn.addEventListener('click', () => {
+                const name = document.getElementById('name').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const notes = document.getElementById('notes').value.trim();
+                
+                if (!name || !phone) {
+                    showAlert('الرجاء إدخال جميع المعلومات المطلوبة', 'error');
+                    return;
+                }
+                
+                if (cart.length === 0) {
+                    showAlert('سلة التسوق فارغة', 'error');
+                    return;
+                }
+                
+                // Prepare order message
+                let message = `مرحبًا، أريد شراء المنتجات التالية:\n\n`;
+                
+                // Add cart items to message
+                cart.forEach(item => {
+                    message += `- ${item.product} (الكمية: ${item.quantity}) - ${(item.price * item.quantity).toFixed(2)} JD\n`;
+                    if (item.gameId) {
+                        message += `معرف اللعبة: ${item.gameId}\n`;
+                    }
+                    message += `\n`;
+                });
+                
+                // Calculate total
+                let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                if (discountApplied) {
+                    const discountAmount = total * DISCOUNT_PERCENTAGE;
+                    total -= discountAmount;
+                    message += `\nالخصم: ${(discountAmount).toFixed(2)} JD (كود: ${DISCOUNT_CODE})\n`;
+                }
+                
+                message += `\nالمجموع: ${total.toFixed(2)} JD\n\n`;
+                message += `معلومات العميل:\n`;
+                message += `الاسم: ${name}\n`;
+                message += `رقم الهاتف: ${phone}\n`;
+                
+                if (notes) {
+                    message += `\nملاحظات إضافية:\n${notes}`;
+                }
+                
+                // Encode message for WhatsApp URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Open WhatsApp with the order
+                window.open(`https://wa.me/962798084469?text=${encodedMessage}`, '_blank');
+                
+                // Clear the cart
+                cart = [];
+                discountApplied = false;
+                saveCart();
+                updateCartUI();
+                
+                // Close the cart modal
+                closeModal('cart-modal');
+                
+                // Reset form
+                document.getElementById('checkout-form').reset();
+                
+                // Show success message
+                showAlert('تم إرسال طلبك بنجاح، سيتم التواصل معك قريبًا', 'success');
+            });
+        }
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Add fadeOut animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
