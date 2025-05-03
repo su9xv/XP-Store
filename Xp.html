@@ -1778,6 +1778,24 @@
             overflow-y: auto;
             flex: 1;
         }
+        
+        /* New styles for Instagram checkout button */
+        .instagram-checkout-btn {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+        
+        .checkout-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .checkout-buttons .btn {
+            flex: 1;
+            min-width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -2613,9 +2631,14 @@
                         <textarea id="notes"></textarea>
                     </div>
                     
-                    <div class="cart-actions">
+                    <div class="checkout-buttons">
                         <button class="btn btn-outline" id="clear-cart">تفريغ السلة</button>
-                        <button class="btn" id="checkout">إتمام الطلب عبر واتساب</button>
+                        <button class="btn instagram-checkout-btn" id="checkout-instagram">
+                            <i class="fab fa-instagram"></i> إتمام الطلب عبر انستقرام
+                        </button>
+                        <button class="btn" id="checkout-whatsapp">
+                            <i class="fab fa-whatsapp"></i> إتمام الطلب عبر واتساب
+                        </button>
                     </div>
                 </div>
             </div>
@@ -2697,7 +2720,8 @@
         const emptyCartMessage = document.getElementById('empty-cart-message');
         const checkoutForm = document.getElementById('checkout-form');
         const clearCartBtn = document.getElementById('clear-cart');
-        const checkoutBtn = document.getElementById('checkout');
+        const checkoutWhatsappBtn = document.getElementById('checkout-whatsapp');
+        const checkoutInstagramBtn = document.getElementById('checkout-instagram');
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const navMenu = document.getElementById('nav-menu');
         const discountCodeInput = document.getElementById('discount-code');
@@ -3097,6 +3121,142 @@
             document.body.style.overflow = 'auto';
         }
         
+        // Copy order to clipboard and open Instagram
+        function checkoutWithInstagram() {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+            
+            if (!name || !phone) {
+                showAlert('الرجاء إدخال جميع المعلومات المطلوبة', 'error');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                showAlert('سلة التسوق فارغة', 'error');
+                return;
+            }
+            
+            // Prepare order message
+            let message = `مرحبًا، أريد شراء المنتجات التالية:\n\n`;
+            
+            // Add cart items to message
+            cart.forEach(item => {
+                message += `- ${item.product} (الكمية: ${item.quantity}) - ${(item.price * item.quantity).toFixed(2)} JD\n`;
+                if (item.gameId) {
+                    message += `معرف اللعبة: ${item.gameId}\n`;
+                }
+                message += `\n`;
+            });
+            
+            // Calculate total
+            let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (discountApplied) {
+                const discountAmount = total * DISCOUNT_PERCENTAGE;
+                total -= discountAmount;
+                message += `\nالخصم: ${(discountAmount).toFixed(2)} JD (كود: ${DISCOUNT_CODE})\n`;
+            }
+            
+            message += `\nالمجموع: ${total.toFixed(2)} JD\n\n`;
+            message += `معلومات العميل:\n`;
+            message += `الاسم: ${name}\n`;
+            message += `رقم الهاتف: ${phone}\n`;
+            
+            if (notes) {
+                message += `\nملاحظات إضافية:\n${notes}`;
+            }
+            
+            // Copy message to clipboard
+            navigator.clipboard.writeText(message).then(() => {
+                showAlert('تم نسخ الطلب إلى الحافظة، الرجاء لصقه في محادثة الإنستقرام', 'success');
+                
+                // Open Instagram
+                window.open('https://www.instagram.com/xpstore.jo?igsh=M3NpY3Buem16MXc5', '_blank');
+                
+                // Clear the cart
+                cart = [];
+                discountApplied = false;
+                saveCart();
+                updateCartUI();
+                
+                // Close the cart modal
+                closeModal('cart-modal');
+                
+                // Reset form
+                document.getElementById('checkout-form').reset();
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showAlert('حدث خطأ أثناء نسخ الطلب، الرجاء المحاولة مرة أخرى', 'error');
+            });
+        }
+        
+        // Checkout with WhatsApp
+        function checkoutWithWhatsApp() {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+            
+            if (!name || !phone) {
+                showAlert('الرجاء إدخال جميع المعلومات المطلوبة', 'error');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                showAlert('سلة التسوق فارغة', 'error');
+                return;
+            }
+            
+            // Prepare order message
+            let message = `مرحبًا، أريد شراء المنتجات التالية:\n\n`;
+            
+            // Add cart items to message
+            cart.forEach(item => {
+                message += `- ${item.product} (الكمية: ${item.quantity}) - ${(item.price * item.quantity).toFixed(2)} JD\n`;
+                if (item.gameId) {
+                    message += `معرف اللعبة: ${item.gameId}\n`;
+                }
+                message += `\n`;
+            });
+            
+            // Calculate total
+            let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (discountApplied) {
+                const discountAmount = total * DISCOUNT_PERCENTAGE;
+                total -= discountAmount;
+                message += `\nالخصم: ${(discountAmount).toFixed(2)} JD (كود: ${DISCOUNT_CODE})\n`;
+            }
+            
+            message += `\nالمجموع: ${total.toFixed(2)} JD\n\n`;
+            message += `معلومات العميل:\n`;
+            message += `الاسم: ${name}\n`;
+            message += `رقم الهاتف: ${phone}\n`;
+            
+            if (notes) {
+                message += `\nملاحظات إضافية:\n${notes}`;
+            }
+            
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Open WhatsApp with the order
+            window.open(`https://wa.me/962798084469?text=${encodedMessage}`, '_blank');
+            
+            // Clear the cart
+            cart = [];
+            discountApplied = false;
+            saveCart();
+            updateCartUI();
+            
+            // Close the cart modal
+            closeModal('cart-modal');
+            
+            // Reset form
+            document.getElementById('checkout-form').reset();
+            
+            // Show success message
+            showAlert('تم إرسال طلبك بنجاح، سيتم التواصل معك قريبًا', 'success');
+        }
+        
         // Setup event listeners
         function setupEventListeners() {
             // Mobile menu toggle
@@ -3196,72 +3356,11 @@
                 }
             });
             
-            // Checkout
-            checkoutBtn.addEventListener('click', () => {
-                const name = document.getElementById('name').value.trim();
-                const phone = document.getElementById('phone').value.trim();
-                const notes = document.getElementById('notes').value.trim();
-                
-                if (!name || !phone) {
-                    showAlert('الرجاء إدخال جميع المعلومات المطلوبة', 'error');
-                    return;
-                }
-                
-                if (cart.length === 0) {
-                    showAlert('سلة التسوق فارغة', 'error');
-                    return;
-                }
-                
-                // Prepare order message
-                let message = `مرحبًا، أريد شراء المنتجات التالية:\n\n`;
-                
-                // Add cart items to message
-                cart.forEach(item => {
-                    message += `- ${item.product} (الكمية: ${item.quantity}) - ${(item.price * item.quantity).toFixed(2)} JD\n`;
-                    if (item.gameId) {
-                        message += `معرف اللعبة: ${item.gameId}\n`;
-                    }
-                    message += `\n`;
-                });
-                
-                // Calculate total
-                let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                if (discountApplied) {
-                    const discountAmount = total * DISCOUNT_PERCENTAGE;
-                    total -= discountAmount;
-                    message += `\nالخصم: ${(discountAmount).toFixed(2)} JD (كود: ${DISCOUNT_CODE})\n`;
-                }
-                
-                message += `\nالمجموع: ${total.toFixed(2)} JD\n\n`;
-                message += `معلومات العميل:\n`;
-                message += `الاسم: ${name}\n`;
-                message += `رقم الهاتف: ${phone}\n`;
-                
-                if (notes) {
-                    message += `\nملاحظات إضافية:\n${notes}`;
-                }
-                
-                // Encode message for WhatsApp URL
-                const encodedMessage = encodeURIComponent(message);
-                
-                // Open WhatsApp with the order
-                window.open(`https://wa.me/962798084469?text=${encodedMessage}`, '_blank');
-                
-                // Clear the cart
-                cart = [];
-                discountApplied = false;
-                saveCart();
-                updateCartUI();
-                
-                // Close the cart modal
-                closeModal('cart-modal');
-                
-                // Reset form
-                document.getElementById('checkout-form').reset();
-                
-                // Show success message
-                showAlert('تم إرسال طلبك بنجاح، سيتم التواصل معك قريبًا', 'success');
-            });
+            // Checkout with WhatsApp
+            checkoutWhatsappBtn.addEventListener('click', checkoutWithWhatsApp);
+            
+            // Checkout with Instagram
+            checkoutInstagramBtn.addEventListener('click', checkoutWithInstagram);
         }
         
         // Initialize the app
