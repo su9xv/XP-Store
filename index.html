@@ -1193,6 +1193,64 @@
             background: linear-gradient(135deg, var(--primary-red), var(--light-red));
             color: white;
         }
+
+        /* Payment Methods Button */
+        .guarantee-btn.blue {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        /* Payment Methods Modal */
+        .payment-methods {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .payment-methods h3 {
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .payment-method:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .payment-method i {
+            font-size: 2rem;
+            margin-left: 1rem;
+            color: var(--primary-red);
+        }
+        
+        .payment-method .method-details {
+            flex: 1;
+        }
+        
+        .payment-method h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .payment-method p {
+            color: #666;
+            margin-bottom: 0;
+        }
         
         /* Contact Section */
         .contact-section {
@@ -1460,6 +1518,23 @@
                 transform: translateX(100%) rotate(30deg);
             }
         }
+
+        /* Smooth scroll animation */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Section animation */
+        section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         
         /* Responsive styles */
         @media (max-width: 992px) {
@@ -1525,6 +1600,16 @@
             
             .subscription-plans {
                 grid-template-columns: 1fr;
+            }
+
+            .guarantee-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .guarantee-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
         
@@ -1813,8 +1898,8 @@
                 <nav>
                     <ul id="nav-menu">
                         <li><a href="#" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
-                        <li><a href="#games-section" id="show-charge"><i class="fas fa-gamepad"></i> شحن الألعاب</a></li>
-                        <li><a href="#subscriptions-section" id="show-subscriptions"><i class="fas fa-crown"></i> الاشتراكات</a></li>
+                        <li><a href="#games-section"><i class="fas fa-gamepad"></i> شحن الألعاب</a></li>
+                        <li><a href="#subscriptions-section"><i class="fas fa-crown"></i> الاشتراكات</a></li>
                         <li><a href="#features"><i class="fas fa-star"></i> المميزات</a></li>
                         <li><a href="#contact"><i class="fas fa-headset"></i> تواصل معنا</a></li>
                     </ul>
@@ -1834,11 +1919,11 @@
             <p>أسرع متجر لشحن الألعاب والاشتراكات مع ضمان ذهبي ودعم فني متكامل</p>
             
             <div class="main-buttons">
-                <a href="#games-section" class="main-btn" id="charge-btn">
+                <a href="#games-section" class="main-btn">
                     <i class="fas fa-gamepad"></i>
                     <span>شحن الألعاب</span>
                 </a>
-                <a href="#subscriptions-section" class="main-btn" id="subscriptions-btn">
+                <a href="#subscriptions-section" class="main-btn">
                     <i class="fas fa-crown"></i>
                     <span>اشتراكات </span>
                 </a>
@@ -1949,8 +2034,50 @@
             <a href="#" class="guarantee-btn red" id="show-vbucks-info">
                 <i class="fas fa-info-circle"></i> معلومات شحن فورتنايت
             </a>
+            <a href="#" class="guarantee-btn blue" id="show-payment-methods">
+                <i class="fas fa-credit-card"></i> طرق الدفع
+            </a>
         </div>
     </section>
+
+    <!-- Payment Methods Modal -->
+    <div class="modal" id="payment-methods-modal">
+        <div class="modal-content info-modal-content">
+            <div class="modal-header">
+                <h3>طرق الدفع المتاحة</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body info-modal-body">
+                <div class="payment-methods">
+                    <h3>طرق الدفع المتاحة لدينا</h3>
+                    
+                    <div class="payment-method">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div class="method-details">
+                            <h4>كليك - Cliq</h4>
+                            <p>بنك الأردن<br>الاسم: ADAM NIDAL ADEL ALMENAWI</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div class="method-details">
+                            <h4>Orange Money - اورنج موني</h4>
+                            <p>رقم الجوال: 0797763616<br>الاسم: Manal AbuZahra</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="method-details">
+                            <h4>طرق دفع أخرى</h4>
+                            <p>يتوفر جميع الطرق الاخرى<br>للاستفسار تواصل معنا ولا تتردد</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
@@ -1998,8 +2125,8 @@
                     <h3>روابط سريعة</h3>
                     <ul>
                         <li><a href="#"><i class="fas fa-home"></i> الرئيسية</a></li>
-                        <li><a href="#games-section" id="footer-charge"><i class="fas fa-gamepad"></i> شحن الألعاب</a></li>
-                        <li><a href="#subscriptions-section" id="footer-subscriptions"><i class="fas fa-crown"></i> اشتراكات بلايستيشن</a></li>
+                        <li><a href="#games-section"><i class="fas fa-gamepad"></i> شحن الألعاب</a></li>
+                        <li><a href="#subscriptions-section"><i class="fas fa-crown"></i> اشتراكات بلايستيشن</a></li>
                         <li><a href="#features"><i class="fas fa-star"></i> مميزاتنا</a></li>
                         <li><a href="#contact"><i class="fas fa-headset"></i> تواصل معنا</a></li>
                     </ul>
@@ -2733,6 +2860,7 @@
             setupEventListeners();
             setupProductSelection();
             setupSubscriptionSelection();
+            setupScrollAnimation();
         }
         
         // Load cart from localStorage
@@ -3257,6 +3385,25 @@
             showAlert('تم إرسال طلبك بنجاح، سيتم التواصل معك قريبًا', 'success');
         }
         
+        // Setup scroll animation
+        function setupScrollAnimation() {
+            const sections = document.querySelectorAll('section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
         // Setup event listeners
         function setupEventListeners() {
             // Mobile menu toggle
@@ -3308,22 +3455,12 @@
                 document.getElementById('vbucks-info-modal').style.display = 'block';
                 document.body.style.overflow = 'hidden';
             });
-            
-            // Navigation links
-            const setupNavLink = (elementId, modalId) => {
-                document.getElementById(elementId)?.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.getElementById(modalId).style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                });
-            };
-            
-            setupNavLink('charge-btn', 'freefire-modal');
-            setupNavLink('subscriptions-btn', 'psplus-modal');
-            setupNavLink('show-charge', 'freefire-modal');
-            setupNavLink('show-subscriptions', 'psplus-modal');
-            setupNavLink('footer-charge', 'freefire-modal');
-            setupNavLink('footer-subscriptions', 'psplus-modal');
+
+            document.getElementById('show-payment-methods')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('payment-methods-modal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
             
             // Remove item from cart
             cartItemsContainer.addEventListener('click', (e) => {
